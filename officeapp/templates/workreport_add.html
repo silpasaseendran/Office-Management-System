@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Daily Labour Report</title>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+<style>
+body{
+    background:#f4f6f9;
+}
+
+/* Container */
+.container-box{
+    width:95%;
+    margin:30px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Table scroll for mobile */
+.table-responsive{
+    overflow-x:auto;
+}
+
+/* Inputs */
+input{
+    width:100%;
+    padding:8px;
+    border:1px solid #2c4d65;
+    border-radius:5px;
+}
+
+/* Buttons */
+.btn-custom{
+    margin:5px 5px 5px 0;
+}
+
+.custom-head th {
+    background-color: #0f5d7b !important; /* blue */
+    color: white !important;
+}
+</style>
+
+<script>
+function addLabourRow() {
+    let table = document.getElementById("reportTable");
+    let row = table.insertRow(-1);
+
+    row.innerHTML = `
+        <td><input type="hidden" name="sl_no[]"></td>
+        <td><input type="hidden" name="site[]"></td>
+        <td><input type="text" name="labour_type[]"></td>
+        <td><input type="number" name="nos[]"></td>
+        <td><input type="text" name="remarks[]"></td>
+    `;
+}
+
+function addSiteRow() {
+    let table = document.getElementById("reportTable");
+    let row = table.insertRow(-1);
+
+    row.innerHTML = `
+        <td><input type="number" name="sl_no[]" min="1"></td>
+        <td><input type="text" name="site[]"></td>
+        <td><input type="text" name="labour_type[]"></td>
+        <td><input type="number" name="nos[]"></td>
+        <td><input type="text" name="remarks[]"></td>
+    `;
+}
+</script>
+
+</head>
+
+<body>
+
+<div class="container-box">
+
+<h2 class="text-center">DAILY LABOUR REPORT</h2>
+<p class="text-center fw-bold">Date - {{ today }}</p>
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="table-responsive">
+<table class="table table-bordered text-center" id="reportTable">
+
+<tr class="custom-head">
+    <th>SL NO</th>
+    <th>SITE</th>
+    <th>LABOUR TYPE</th>
+    <th>NOS</th>
+    <th>REMARKS</th>
+</tr>
+
+<tr>
+    <td><input type="number" name="sl_no[]"></td>
+    <td><input type="text" name="site[]"></td>
+    <td><input type="text" name="labour_type[]"></td>
+    <td><input type="number" name="nos[]"></td>
+    <td><input type="text" name="remarks[]"></td>
+</tr>
+
+</table>
+</div>
+
+<!-- Buttons -->
+<div class="mt-2">
+    <button type="button" onclick="addLabourRow()" class="btn btn-secondary btn-custom">
+        + Add Labour Row
+    </button>
+
+    <button type="button" onclick="addSiteRow()" class="btn btn-primary btn-custom">
+        + Add Site Row
+    </button>
+
+    <button type="submit" class="btn btn-success btn-custom">
+        Save Report
+    </button>
+</div>
+
+</form>
+
+</div>
+
+</body>
+</html>

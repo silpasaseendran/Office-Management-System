@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Office Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #1e293b;
+    position: fixed;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.sidebar h2 {
+    color: #fff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar a {
+    display: block;
+    color: #cbd5e1;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 8px;
+}
+
+.sidebar a:hover {
+    background: #334155;
+    color: #fff;
+}
+
+.logout {
+    background: #dc2626;
+    color: white !important;
+}
+
+/* Main */
+.main {
+    margin-left: 240px;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+/* Topbar */
+.topbar {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 15px;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* 🔥 MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main {
+        margin-left: 0;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>OfficeMS</h2>
+
+    <a href="{% url 'dashboard' %}">Dashboard</a>
+
+    {% if employee.position == "Admin" or employee.position == "Head" %}
+    <a href="{% url 'employee_list' %}">View Employees</a>
+    {% endif %}
+
+    <a href="{% url 'add_employee' %}">Employees</a>
+    <a href="{% url 'attendance' %}">Attendance</a>
+    <a href="{% url 'workreport_add' %}">Work Report</a>
+    <a href="{% url 'expense_add' %}">Expense Report</a>
+    <a href="{% url 'projects' %}">Projects</a>
+    <a href="{% url 'logout' %}" class="logout">Logout</a>
+</div>
+
+<div class="main">
+
+    <div class="topbar">
+        <h1>Dashboard</h1>
+        <p>Welcome to Office Management System</p>
+    </div>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Employees</h3>
+            <p>View all employees</p>
+            <a href="{% url 'view_employees' %}">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Attendance</h3>
+            <p>Daily attendance</p>
+            <a href="{% url 'attendance_view' %}">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Work Report</h3>
+            <p>Employee work status</p>
+            <a href="{% url 'workreport_view' %}">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Expense Report</h3>
+            <p>Employee expense status</p>
+            <a href="{% url 'expense_view' %}">Open</a>
+        </div>
+
+        <div class="card">
+            <h3>Projects</h3>
+            <p>Ongoing projects</p>
+            <a href="{% url 'projects' %}">Open</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

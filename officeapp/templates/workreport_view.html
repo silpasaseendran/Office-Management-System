@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Work Report View</title>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+<style>
+body {
+    background:#f4f6f9;
+    padding:20px;
+}
+
+/* Report box */
+.report-box {
+    max-width:900px;
+    width:100%;
+    margin:20px auto;
+    border:2px solid #000;
+    padding:15px;
+    border-radius:8px;
+    background:white;
+}
+
+/* Title */
+.report-title {
+    text-align:center;
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:10px;
+}
+
+.report-date {
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+/* Table responsive */
+.table-responsive {
+    overflow-x:auto;
+}
+
+/* Table */
+table {
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td {
+    border:1px solid #000;
+    padding:8px;
+    text-align:center;
+}
+
+/* Head color */
+thead th {
+    background-color:#1a5595;
+    color:white;
+}
+</style>
+
+</head>
+
+<body>
+
+<h2 class="text-center mb-4">WORK REPORTS</h2>
+
+{% for report_no, report in reports.items %}
+
+<div class="report-box">
+
+    <div class="report-title">DAILY LABOUR REPORT</div>
+
+    <div class="report-date">
+        Date – {{ report.date }} | Report No – {{ report_no }}
+    </div>
+
+    <!-- Buttons -->
+    <div class="mb-2 text-end">
+        <a href="{% url 'workreport_pdf' report_no %}"
+           class="btn btn-success btn-sm">Download PDF</a>
+
+        <a href="{% url 'workreport_delete' report_no %}"
+           onclick="return confirm('Delete this report?')"
+           class="btn btn-danger btn-sm">Delete</a>
+    </div>
+
+    <div class="table-responsive">
+    <table>
+
+        <thead>
+        <tr>
+            <th>SL NO</th>
+            <th>SITE</th>
+            <th>LABOUR TYPE</th>
+            <th>NOS</th>
+            <th>REMARKS</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for key, rows in report.sites.items %}
+            {% for r in rows %}
+            <tr>
+
+                {% if forloop.first %}
+                    <td rowspan="{{ rows|length }}">{{ key.0 }}</td>
+                    <td rowspan="{{ rows|length }}">{{ key.1 }}</td>
+                {% endif %}
+
+                <td>{{ r.labour_type }}</td>
+                <td>{{ r.nos }}</td>
+                <td>{{ r.remarks }}</td>
+
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+
+    </table>
+    </div>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

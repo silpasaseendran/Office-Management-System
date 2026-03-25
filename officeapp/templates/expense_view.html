@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Expense Report</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#f4f6f9;
+padding:40px;
+}
+
+.container{
+width:900px;
+margin:auto;
+}
+
+.report-box{
+background:white;
+padding:20px;
+margin-bottom:40px;
+box-shadow:0 0 8px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+table-layout:fixed;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:8px;
+word-wrap:break-word;
+white-space:normal;
+}
+
+th{
+background:#2c3e50;
+color:white;
+}
+
+.buttons{
+text-align:right;
+margin-bottom:10px;
+}
+
+a{
+padding:6px 12px;
+color:white;
+text-decoration:none;
+border-radius:4px;
+margin-left:5px;
+}
+
+.pdf{
+background:#27ae60;
+}
+
+.delete{
+background:#e74c3c;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2 style="text-align:center;">OFFICE EXPENSE REPORT</h2>
+
+{% for report_no, data in reports.items %}
+
+<div class="report-box">
+
+<!-- BUTTONS -->
+
+<div class="buttons">
+
+<a href="{% url 'expense_pdf' report_no %}?paid=0" class="pdf">PDF</a>
+
+<a href="{% url 'expense_delete' report_no %}"
+class="delete"
+onclick="return confirm('Delete this report?')">
+Delete
+</a>
+
+</div>
+
+<h3>Report No : {{ report_no }}</h3>
+
+<table>
+
+<tr>
+<th style="width:8%">SL NO</th>
+<th style="width:30%">ITEM</th>
+<th style="width:15%">DEPARTMENT</th>
+<th style="width:15%">AMOUNT</th>
+<th style="width:32%">REMARK</th>
+</tr>
+
+{% for r in data.rows %}
+
+<tr>
+<td>{{ r.sl_no }}</td>
+<td>{{ r.item }}</td>
+<td>{{ r.department }}</td>
+<td>{{ r.amount }}</td>
+<td>{{ r.remark }}</td>
+</tr>
+
+{% endfor %}
+
+<!-- TOTAL -->
+
+<tr style="font-weight:bold;background:#eee;">
+
+<td colspan="3">TOTAL</td>
+
+<td colspan="2">{{ data.total }}</td>
+
+</tr>
+
+<!-- PAID -->
+
+<tr>
+<td colspan="3"><b>PAID AMOUNT</b></td>
+<td colspan="2">{{ data.paid }}</td>
+</tr>
+
+<!-- BALANCE -->
+
+<tr>
+<td colspan="3"><b>BALANCE</b></td>
+<td colspan="2">{{ data.balance }}</td>
+</tr>
+
+</table>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+<script>
+
+function calculateBalance(report,total){
+
+let paid=document.getElementById("paid_"+report).value;
+
+let balance=total-(paid || 0);
+
+document.getElementById("balance_"+report).innerText=balance;
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+
+body{
+font-family: Arial;
+}
+
+h2{
+text-align:center;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid black;
+padding:6px;
+text-align:center;
+}
+
+th{
+background:#dddddd;
+}
+
+.total{
+font-weight:bold;
+background:#f2f2f2;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>OFFICE EXPENSE REPORT</h2>
+
+<table>
+
+<tr>
+<th>SL NO</th>
+<th>ITEM</th>
+<th>DEPARTMENT</th>
+<th>AMOUNT</th>
+<th>REMARK</th>
+</tr>
+
+{% for e in expenses %}
+
+<tr>
+<td>{{ e.sl_no }}</td>
+<td>{{ e.item }}</td>
+<td>{{ e.department }}</td>
+<td>{{ e.amount }}</td>
+<td>{{ e.remark }}</td>
+</tr>
+
+{% endfor %}
+
+<tr>
+<td colspan="3"><b>TOTAL</b></td>
+<td colspan="2">{{ total }}</td>
+</tr>
+
+<tr>
+<td colspan="3"><b>PAID</b></td>
+<td colspan="2">{{ paid }}</td>
+</tr>
+
+<tr>
+<td colspan="3"><b>BALANCE</b></td>
+<td colspan="2">{{ balance }}</td>
+</tr>
+
+</table>
+
+</body>
+</html>

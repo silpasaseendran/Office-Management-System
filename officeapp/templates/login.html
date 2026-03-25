@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    {% load static %}
+
+     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <style>
+        body {
+            height: 100vh;
+            background: linear-gradient(120deg, #1e3c72, #594999);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            width: 800px;
+            height: 400px;
+            display: flex;
+            box-shadow: 0 0 25px rgba(0,0,0,0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+        }
+
+        .left {
+            width: 50%;
+            background: linear-gradient(180deg, #283048, #859398);
+            color: white;
+            padding: 40px;
+        }
+
+        .right {
+            width: 50%;
+            padding: 40px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-card">
+    <!-- LEFT SIDE -->
+    <div class="left">
+        <h2>Office Management</h2>
+        <p class="mt-4">
+            Welcome back!
+            Login to manage employees, departments, and office records.
+        </p>
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+        <h3 class="text-center mb-4">Login</h3>
+
+        <form method="post">
+            {% csrf_token %}
+            <input class="form-control mb-3" name="usernam" placeholder="Username" required>
+            <input class="form-control mb-3" type="password" name="passwor" placeholder="Password" required>
+
+            <button class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <p class="text-center mt-3">
+            New user? <a href="register">Register</a>
+        </p>
+    </div>
+</div>
+
+</body>
+</html>

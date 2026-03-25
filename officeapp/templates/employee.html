@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Employee</title>
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+<style>
+    .form-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+body{
+    background:#f4f6f9;
+}
+
+/* Form box */
+.form-box{
+    max-width:400px;
+    width:100%;
+    margin:60px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Input spacing fix */
+.form-control{
+    padding:12px 15px !important;
+    margin-bottom:10px;
+    border-radius:6px;
+}
+
+/* Placeholder style */
+::placeholder{
+    color:#888;
+}
+
+/* Button */
+.btn-custom{
+    background:#2841a7;
+    color:white;
+}
+
+.btn-custom:hover{
+    background:#1d2f7a;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="form-box">
+<h2 class="text-center mb-3">Add Employee</h2>
+
+<form method="POST">
+{% csrf_token %}
+
+<input type="text" name="name" class="form-control" placeholder="Employee Name" required>
+
+<input type="email" name="email" class="form-control" placeholder="Email Address" required>
+
+<input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+
+<input type="text" name="department" class="form-control" placeholder="Department" required>
+
+<input type="text" name="position" class="form-control" placeholder="Position" required>
+
+<label class="form-label">Joined Date</label>
+<input type="date" name="joined_date" class="form-control mb-3" required>
+
+<button type="submit" class="btn btn-custom w-100 mt-2">Save Employee</button>
+
+</form>
+</div>
+
+</div>
+
+</body>
+</html>
