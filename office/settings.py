@@ -81,8 +81,9 @@ WSGI_APPLICATION = "office.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    
-    'default': dj_database_url.parse(os.environ.get('postgresql://office_db_jgv4_user:HzrvwGh6w9NZM5QtEIN3lhsmQniuEb9v@dpg-d73mnvlactks7381hrf0-a.singapore-postgres.render.com/office_db_jgv4'))
+    'default': dj_database_url.parse(
+        os.environ.get("DATABASE_URL")
+    )
 }
 
 
