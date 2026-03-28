@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-pwlk80&z5ubu+fl#kv)@5%0!hc##-2y5ywn36s4%b_tdb$06)v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://office-management-system-ztve.onrender.com']
+ALLOWED_HOSTS = ['office-management-system-ztve.onrender.com']
 
 
 # Application definition
@@ -127,5 +127,5 @@ STATICFILES_DIRS=[BASE_DIR/"static"]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-CSRF_TRUSTED_ORIGINS = ['https://officeapp.onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://office-management-system-ztve.onrender.com']
 
