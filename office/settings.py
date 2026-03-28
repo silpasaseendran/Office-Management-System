@@ -31,7 +31,7 @@ SECRET_KEY = "django-insecure-pwlk80&z5ubu+fl#kv)@5%0!hc##-2y5ywn36s4%b_tdb$06)v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://office-management-system-ztve.onrender.com']
 
 
 # Application definition
