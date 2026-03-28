@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Projects</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+
+<style>
+
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+    padding:20px;
+    
+}
+
+.project-grid{
+    display:flex;
+    flex-wrap:wrap;        /* 🔥 wrap instead of break */
+    justify-content:center;
+    gap:40px;
+}
+
+/* CARD */
+.card{
+    width:350px;              /* fixed width */
+    background:rgb(222, 232, 233);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* IMAGE */
+.card img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+}
+
+/* BODY */
+.card-body{
+    padding:12px;
+}
+
+/* TEXT */
+.card-body h3{
+    margin:0;
+    font-size:16px;
+}
+
+.card-body p{
+    margin-top:8px;
+    font-size:14px;
+    color:#555;
+
+    /* 🔥 TEXT WRAP FIX */
+    word-break: break-word;
+    white-space: normal;
+}
+
+.delete-btn{
+    display:inline-block;
+    margin-top:10px;
+    padding:6px 12px;
+    background:#62c9e3;
+    color:white;
+    text-decoration:none;
+    border-radius:5px;
+    font-size:14px;
+}
+
+.delete-btn:hover{
+    background:#8fa6b3;
+}
+</style>
+
+</head>
+<body>
+
+
+<h2 style="text-align:center;">Projects</h2>
+
+<div class="project-grid">
+
+{% for project in projects %}
+
+<div class="card">
+
+    <!-- IMAGE -->
+    <img src="{{ project.image.url }}">
+
+    <!-- TEXT -->
+    <div class="card-body">
+        <h3>{{ project.name }}</h3>
+
+        <!-- 🔥 SAME WIDTH DESCRIPTION -->
+        <p>{{ project.description|truncatechars:800 }}</p>
+
+        <a href="{% url 'project_delete' project.id %}"
+           onclick="return confirm('Delete this project?')"
+           class="delete-btn">
+           Delete
+        </a>
+    </div>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</body>
+</html>

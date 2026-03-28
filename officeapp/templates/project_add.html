@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Add Project</title>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+
+<style>
+body{
+    font-family: Arial;
+    background:#f4f6f9;
+    
+}
+
+.form-box{
+    max-width:500px;
+    margin:50px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.1);
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1e40af;
+}
+</style>
+
+</head>
+<body>
+
+<div class="form-box">
+<h2>Add Project</h2>
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+
+<input type="text" name="name" placeholder="Project Name" required>
+
+<textarea name="description" rows="4" placeholder="Project Description"></textarea>
+
+<input type="file" name="image" required>
+
+<button type="submit">Save Project</button>
+
+</form>
+</div>
+
+</body>
+</html>

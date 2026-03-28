@@ -1,3 +1,9 @@
+import os
+import dj_database_url
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 """
 Django settings for office project.
 
@@ -23,7 +29,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-pwlk80&z5ubu+fl#kv)@5%0!hc##-2y5ywn36s4%b_tdb$06)v"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -48,6 +54,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = "office.urls"
@@ -74,14 +81,8 @@ WSGI_APPLICATION = "office.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'office_db',
-        'USER': 'postgres',
-        'PASSWORD': 'Admin89',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
+    
+    'default': dj_database_url.parse(os.environ.get('postgresql://office_db_jgv4_user:HzrvwGh6w9NZM5QtEIN3lhsmQniuEb9v@dpg-d73mnvlactks7381hrf0-a.singapore-postgres.render.com/office_db_jgv4'))
 }
 
 
@@ -121,3 +122,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 STATICFILES_DIRS=[BASE_DIR/"static"]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+

@@ -45,12 +45,16 @@ body {
 table {
     width:100%;
     border-collapse:collapse;
+    table-layout: fixed;
 }
 
 th, td {
     border:1px solid #000;
     padding:8px;
     text-align:center;
+    word-wrap: break-word;   /* old support */
+    word-break: break-word;  /* 🔥 main fix */
+    white-space: normal;
 }
 
 /* Head color */
@@ -91,10 +95,10 @@ thead th {
 
         <thead>
         <tr>
-            <th>SL NO</th>
+            <th width="8%">SL NO</th>
             <th>SITE</th>
             <th>LABOUR TYPE</th>
-            <th>NOS</th>
+            <th width="10%">NOS</th>
             <th>REMARKS</th>
         </tr>
         </thead>

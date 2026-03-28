@@ -4,65 +4,48 @@
 
 <title>Expense Add</title>
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+ <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
 <style>
 
 body{
-font-family: Arial;
-background:#f4f6f9;
-padding:40px;
+    background:#f4f6f9;
 }
 
-.container{
-width:900px;
-margin:auto;
-background:white;
-padding:25px;
-border-radius:6px;
-box-shadow:0 0 8px rgba(0,0,0,0.1);
+/* Container */
+.container-box{
+    max-width:900px;
+    width:100%;
+    margin:30px auto;
+    background:white;
+    padding:25px;
+    border-radius:8px;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
 }
 
-h2{
-text-align:center;
-margin-bottom:20px;
+/* Table responsive */
+.table-responsive{
+    overflow-x:auto;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-border:1px solid #ccc;
-padding:8px;
-text-align:center;
-}
-
-th{
-background:#2c3e50;
-color:white;
-}
-
+/* Inputs */
 input{
-width:100%;
-padding:5px;
-border:1px solid #ccc;
+    width:100%;
+    padding:8px;
+    border:1px solid #ccc;
+    border-radius:5px;
 }
 
-button{
-padding:8px 14px;
-border:none;
-border-radius:4px;
-cursor:pointer;
+/* Buttons */
+.btn-custom{
+    margin:5px 5px 5px 0;
 }
 
-.addbtn{
-background:#3498db;
-color:white;
-}
-
-.savebtn{
-background:#27ae60;
-color:white;
+.custom-head th {
+    background-color: #0f5d7b !important; /* blue */
+    color: white !important;
 }
 
 </style>
@@ -71,16 +54,17 @@ color:white;
 
 <body>
 
-<div class="container">
+<div class="container-box">
 
-<h2>OFFICE EXPENSE ADD</h2>
+<h2 class="text-center mb-3">OFFICE EXPENSE ADD</h2>
 
 <form method="POST">
 {% csrf_token %}
 
-<table id="expenseTable">
+<div class="table-responsive">
+<table class="table table-bordered text-center" id="expenseTable">
 
-<tr>
+<tr class="custom-head">
 <th>SL NO</th>
 <th>ITEMS</th>
 <th>DEPARTMENT</th>
@@ -97,18 +81,24 @@ color:white;
 </tr>
 
 </table>
+</div>
 
-<br><br>
+<!-- Paid Amount -->
+<div class="mt-3">
+    <label class="fw-bold">Paid Amount :</label>
+    <input type="number" name="paid" step="0.01" required>
+</div>
 
-<label><b></b>Paid Amount :</b></label>
+<!-- Buttons -->
+<div class="mt-3">
+    <button type="button" class="btn btn-primary btn-custom" onclick="addRow()">
+        Add Row
+    </button>
 
-<input type="number" name="paid" step="0.01" required>
-
-<br><br>
-
-<button type="button" class="addbtn" onclick="addRow()">Add Row</button>
-
-<button type="submit" class="savebtn">Save Expense</button>
+    <button type="submit" class="btn btn-success btn-custom">
+        Save Expense
+    </button>
+</div>
 
 </form>
 
@@ -123,13 +113,11 @@ let table=document.getElementById("expenseTable");
 let row=table.insertRow(-1);
 
 row.innerHTML=`
-
 <td><input type="number" name="sl_no[]"></td>
 <td><input type="text" name="item[]"></td>
 <td><input type="text" name="department[]"></td>
 <td><input type="number" step="0.01" name="amount[]"></td>
 <td><input type="text" name="remark[]"></td>
-
 `;
 
 }

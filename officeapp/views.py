@@ -17,6 +17,34 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.http import HttpResponse
 from decimal import Decimal
+from .models import Project
+from django.shortcuts import get_object_or_404, redirect
+
+
+def project_add(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        image = request.FILES.get('image')
+
+        Project.objects.create(
+            name=name,
+            description=description,
+            image=image
+        )
+        return redirect('project_view')
+
+    return render(request, 'project_add.html')
+
+def project_view(request):
+    projects = Project.objects.all().order_by('-id')  # latest top
+    return render(request, 'project_view.html', {'projects': projects})
+
+def project_delete(request, id):
+    project = get_object_or_404(Project, id=id)
+    project.delete()
+    return redirect('project_view')
+
 
 def attendance_view(request):
     attendance_list = Attendance.objects.all().order_by('-date')
@@ -56,7 +84,7 @@ def workreport_pdf(request, report_no):
 def workreport_view(request):
 
     reports = WorkReport.objects.all().order_by(
-        "date", "report_no", "sl_no", "id"
+        "-date", "-report_no", "sl_no", "id"
     )
 
     final_group = defaultdict(list)
@@ -186,7 +214,7 @@ def expense_add(request):
 
 def expense_view(request):
 
-    expenses = OfficeExpense.objects.all().order_by("report_no","sl_no")
+    expenses = OfficeExpense.objects.all().order_by("-report_no","sl_no")
 
     grouped = defaultdict(list)
 

@@ -1,29 +1,99 @@
-<h2 style="text-align:center;">DAILY LABOUR REPORT</h2>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
 
-<div style="overflow-x:auto;">
-<table border="1" width="100%" cellspacing="0" cellpadding="5" style="border-collapse:collapse; min-width:600px;">
+<style>
 
-<tr style="background:#d3e2f2; color:rgba(12, 12, 12, 0.975);">
-<th>SL NO</th>
-<th>SITE</th>
-<th>LABOUR TYPE</th>
-<th>NOS</th>
-<th>REMARKS</th>
+body{
+    font-family: Arial;
+    font-size: 12px;
+}
+
+/* TABLE */
+table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout:fixed;
+}
+
+/* CELLS */
+th, td{
+    border:1px solid black;
+    padding:6px;
+    text-align:center;
+    vertical-align: top;
+}
+
+/* HEADER */
+th{
+    background:#d3e2f2;
+}
+
+/* FORCE TEXT BREAK */
+.wrap{
+    word-break: break-all;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="title">
+    DAILY LABOUR REPORT
+</div>
+
+<table>
+
+<tr>
+<th width="8%">SL NO</th>
+<th width="38%">SITE</th>
+<th width="38%">LABOUR TYPE</th>
+<th width="10%">NOS</th>
+<th width="38%">REMARKS</th>
 </tr>
 
 {% for key, rows in reports.items %}
 
     {% for r in rows %}
-    <tr>
+    <tr style="page-break-inside: avoid;">
 
         {% if forloop.first %}
-        <td rowspan="{{ rows|length }}">{{ key.0 }}</td>
-        <td rowspan="{{ rows|length }}">{{ key.1 }}</td>
+        <td rowspan="{{ rows|length }}">
+            {{ key.0 }}
+        </td>
+
+        <td rowspan="{{ rows|length }}" class="wrap">
+            <pdf:wordWrap>
+                {{ key.1 }}
+            </pdf:wordWrap>
+        </td>
         {% endif %}
 
-        <td>{{ r.labour_type }}</td>
-        <td>{{ r.nos }}</td>
-        <td>{{ r.remarks }}</td>
+        <td class="wrap">
+            <pdf:wordWrap>
+                {{ r.labour_type }}
+            </pdf:wordWrap>
+        </td>
+
+        <td>
+            {{ r.nos }}
+        </td>
+
+        <td class="wrap" style="text-align:left;">
+            <pdf:wordWrap>
+                {{ r.remarks }}
+            </pdf:wordWrap>
+        </td>
 
     </tr>
     {% endfor %}
@@ -31,4 +101,6 @@
 {% endfor %}
 
 </table>
-</div>
+
+</body>
+</html>

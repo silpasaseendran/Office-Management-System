@@ -5,31 +5,43 @@
 <style>
 
 body{
-font-family: Arial;
+    font-family: Arial;
+    padding:10px;
 }
 
 h2{
-text-align:center;
+    text-align:center;
 }
 
+/* 🔥 Responsive wrapper */
+.table-box{
+    width:100%;
+    overflow-x:auto;
+}
+
+/* Table */
 table{
-width:100%;
-border-collapse:collapse;
+    width:100%;
+    border-collapse:collapse;
+    min-width:600px; /* important */
 }
 
 th,td{
-border:1px solid black;
-padding:6px;
-text-align:center;
+    border:1px solid black;
+    padding:6px;
+    text-align:center;
 }
 
+/* Header */
 th{
-background:#dddddd;
+    background:#ccd9e7;
+    color:rgb(18, 17, 17);
 }
 
+/* Total rows */
 .total{
-font-weight:bold;
-background:#f2f2f2;
+    font-weight:bold;
+    background:#f2f2f2;
 }
 
 </style>
@@ -40,13 +52,15 @@ background:#f2f2f2;
 
 <h2>OFFICE EXPENSE REPORT</h2>
 
+<div class="table-box">
+
 <table>
 
 <tr>
-<th>SL NO</th>
+<th width="8%">SL NO</th>
 <th>ITEM</th>
 <th>DEPARTMENT</th>
-<th>AMOUNT</th>
+<th width="10%">AMOUNT</th>
 <th>REMARK</th>
 </tr>
 
@@ -62,8 +76,8 @@ background:#f2f2f2;
 
 {% endfor %}
 
-<tr>
-<td colspan="3"><b>TOTAL</b></td>
+<tr class="total">
+<td colspan="3">TOTAL</td>
 <td colspan="2">{{ total }}</td>
 </tr>
 
@@ -78,6 +92,8 @@ background:#f2f2f2;
 </tr>
 
 </table>
+
+</div>
 
 </body>
 </html>

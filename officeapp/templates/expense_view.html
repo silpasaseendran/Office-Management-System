@@ -4,63 +4,63 @@
 
 <title>Expense Report</title>
 
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+ <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
 <style>
 
 body{
-font-family:Arial;
-background:#f4f6f9;
-padding:40px;
+    background:#f4f6f9;
 }
 
-.container{
-width:900px;
-margin:auto;
+/* Container */
+.container-box{
+    max-width:900px;
+    width:100%;
+    margin:30px auto;
 }
 
+/* Report card */
 .report-box{
-background:white;
-padding:20px;
-margin-bottom:40px;
-box-shadow:0 0 8px rgba(0,0,0,0.1);
+    background:white;
+    padding:20px;
+    margin-bottom:30px;
+    border-radius:8px;
+    box-shadow:0 0 8px rgba(0,0,0,0.1);
 }
 
+/* Table responsive */
+.table-responsive{
+    overflow-x:auto;
+}
+
+/* Table */
 table{
-width:100%;
-border-collapse:collapse;
-table-layout:fixed;
+    width:100%;
+    border-collapse:collapse;
 }
 
 th,td{
-border:1px solid #ccc;
-padding:8px;
-word-wrap:break-word;
-white-space:normal;
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
 }
 
-th{
-background:#2c3e50;
-color:white;
+/* Header color */
+thead th{
+    background:#1a5595;
+    color:white;
 }
 
+/* Buttons */
 .buttons{
-text-align:right;
-margin-bottom:10px;
+    text-align:right;
+    margin-bottom:10px;
 }
 
-a{
-padding:6px 12px;
-color:white;
-text-decoration:none;
-border-radius:4px;
-margin-left:5px;
-}
-
-.pdf{
-background:#27ae60;
-}
-
-.delete{
-background:#e74c3c;
+.btn-sm{
+    padding:5px 10px;
 }
 
 </style>
@@ -69,42 +69,42 @@ background:#e74c3c;
 
 <body>
 
-<div class="container">
+<div class="container-box">
 
-<h2 style="text-align:center;">OFFICE EXPENSE REPORT</h2>
+<h2 class="text-center mb-4">OFFICE EXPENSE REPORT</h2>
 
 {% for report_no, data in reports.items %}
 
 <div class="report-box">
 
 <!-- BUTTONS -->
-
 <div class="buttons">
+    <a href="{% url 'expense_pdf' report_no %}?paid=0"
+       class="btn btn-success btn-sm">PDF</a>
 
-<a href="{% url 'expense_pdf' report_no %}?paid=0" class="pdf">PDF</a>
-
-<a href="{% url 'expense_delete' report_no %}"
-class="delete"
-onclick="return confirm('Delete this report?')">
-Delete
-</a>
-
+    <a href="{% url 'expense_delete' report_no %}"
+       onclick="return confirm('Delete this report?')"
+       class="btn btn-danger btn-sm">Delete</a>
 </div>
 
-<h3>Report No : {{ report_no }}</h3>
+<h5><b>Report No :</b> {{ report_no }}</h5>
 
+<div class="table-responsive">
 <table>
 
+<thead>
 <tr>
-<th style="width:8%">SL NO</th>
-<th style="width:30%">ITEM</th>
-<th style="width:15%">DEPARTMENT</th>
-<th style="width:15%">AMOUNT</th>
-<th style="width:32%">REMARK</th>
+<th>SL NO</th>
+<th>ITEM</th>
+<th>DEPARTMENT</th>
+<th>AMOUNT</th>
+<th>REMARK</th>
 </tr>
+</thead>
+
+<tbody>
 
 {% for r in data.rows %}
-
 <tr>
 <td>{{ r.sl_no }}</td>
 <td>{{ r.item }}</td>
@@ -112,34 +112,30 @@ Delete
 <td>{{ r.amount }}</td>
 <td>{{ r.remark }}</td>
 </tr>
-
 {% endfor %}
 
 <!-- TOTAL -->
-
-<tr style="font-weight:bold;background:#eee;">
-
+<tr style="font-weight:bold;background:#f2f2f2;">
 <td colspan="3">TOTAL</td>
-
 <td colspan="2">{{ data.total }}</td>
-
 </tr>
 
 <!-- PAID -->
-
 <tr>
 <td colspan="3"><b>PAID AMOUNT</b></td>
 <td colspan="2">{{ data.paid }}</td>
 </tr>
 
 <!-- BALANCE -->
-
 <tr>
 <td colspan="3"><b>BALANCE</b></td>
 <td colspan="2">{{ data.balance }}</td>
 </tr>
 
+</tbody>
+
 </table>
+</div>
 
 </div>
 

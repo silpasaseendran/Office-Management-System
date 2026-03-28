@@ -103,6 +103,69 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+
+
+/* 🔥 FULL HEIGHT FIX */
+body{
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+}
+
+/* MAIN EXPAND */
+.main{
+    flex:1;
+}
+
+/* FOOTER */
+.footer{
+    background:#1e293b;
+    color:#cbd5e1;
+    padding:20px;
+    margin-left:240px;   /* 🔥 sidebar space */
+}
+
+/* FOOTER CONTENT */
+.footer-content{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+}
+
+/* TEXT */
+.footer h3{
+    margin:0;
+    color:white;
+}
+
+.footer p{
+    margin:5px 0;
+}
+
+/* BOTTOM */
+.footer-bottom{
+    text-align:center;
+    margin-top:10px;
+    font-size:13px;
+    color:#94a3b8;
+}
+
+/* 📱 MOBILE FIX */
+@media(max-width:768px){
+
+    .footer{
+        margin-left:0;   /* remove sidebar gap */
+        text-align:center;
+    }
+
+    .footer-content{
+        flex-direction:column;
+        gap:10px;
+    }
+}
+
+
 </style>
 
 </head>
@@ -122,14 +185,14 @@ body {
     <a href="{% url 'attendance' %}">Attendance</a>
     <a href="{% url 'workreport_add' %}">Work Report</a>
     <a href="{% url 'expense_add' %}">Expense Report</a>
-    <a href="{% url 'projects' %}">Projects</a>
+    <a href="{% url 'project_add' %}">Projects</a>
     <a href="{% url 'logout' %}" class="logout">Logout</a>
 </div>
 
 <div class="main">
 
     <div class="topbar">
-        <h1>Dashboard</h1>
+        <h1>FLYR TECHNOLOGIES</h1>
         <p>Welcome to Office Management System</p>
     </div>
 
@@ -162,12 +225,32 @@ body {
         <div class="card">
             <h3>Projects</h3>
             <p>Ongoing projects</p>
-            <a href="{% url 'projects' %}">Open</a>
+            <a href="{% url 'project_view' %}">Open</a>
         </div>
+        
 
     </div>
 
 </div>
+<footer class="footer">
+    <div class="footer-content">
+
+        <div>
+            <h3>FLYR TECHNOLOGIES</h3>
+            <p>THIRUVANANTHAPURAM</p>
+        </div>
+
+        <div>
+            <p>Email: flyrtechnologies@gmail.com</p>
+            
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        © 2026 OfficeMS. All rights reserved.
+    </div>
+</footer>
 
 </body>
 </html>

@@ -23,7 +23,9 @@ path("expense/pdf/<int:report_no>/",views.expense_pdf,name="expense_pdf"),
 path('projects', views.projects, name='projects'),
 path('reports', views.reports, name='reports'),
 path('logout', views.logout_view, name='logout'),
-
+path('project/add/', views.project_add, name='project_add'),
+path('project/view/', views.project_view, name='project_view'),
+path('project/delete/<int:id>/', views.project_delete, name='project_delete'),
 
 
 
