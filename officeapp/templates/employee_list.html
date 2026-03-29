@@ -16,6 +16,25 @@
     background-color: #1a5595 !important;
     color: white !important;
 }
+table {
+    min-width: 900px;   /* prevent squeezing */
+}
+
+/* TEXT CONTROL */
+td, th {
+    white-space: nowrap;   /* avoid breaking small */
+}
+
+/* MOBILE SCROLL SMOOTH */
+.table-responsive {
+    overflow-x: auto;
+}
+td {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
     </style>
 </head>
 <body>
