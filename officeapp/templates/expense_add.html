@@ -48,6 +48,20 @@ input{
     color: white !important;
 }
 
+.back-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    margin-bottom:15px;
+}
+
+.back-btn:hover{
+    background:#1e40af;
+}
+
 </style>
 
 </head>
@@ -55,6 +69,9 @@ input{
 <body>
 
 <div class="container-box">
+    <button onclick="history.back()" class="back-btn">
+    ← Back
+</button>
 
 <h2 class="text-center mb-3">OFFICE EXPENSE ADD</h2>
 
